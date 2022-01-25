@@ -9,7 +9,7 @@ import com.angelorobson.to_do_compose.util.Constants.LIST_ARGUMENT_KEY
 import com.angelorobson.to_do_compose.util.Constants.LIST_SCREEN
 
 fun NavGraphBuilder.listComposable(
-    navigateTaskScreen: (Int) -> Unit
+    navigateTaskScreen: (taskId: Int) -> Unit
 ) {
     composable(
         route = LIST_SCREEN,
