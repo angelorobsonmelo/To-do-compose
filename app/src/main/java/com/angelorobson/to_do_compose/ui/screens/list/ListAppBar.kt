@@ -1,15 +1,19 @@
 package com.angelorobson.to_do_compose.ui.screens.list
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.angelorobson.to_do_compose.R
 import com.angelorobson.to_do_compose.components.PriorityITem
 import com.angelorobson.to_do_compose.data.models.Priority
+import com.angelorobson.to_do_compose.ui.theme.LARGE_PADDING
+import com.angelorobson.to_do_compose.ui.theme.Typography
 import com.angelorobson.to_do_compose.ui.theme.topAppBarBackGroundColor
 import com.angelorobson.to_do_compose.ui.theme.topAppBarContentColor
 import kotlin.math.exp
@@ -22,6 +26,9 @@ fun ListAppBar() {
         },
         onSortClicked = {
 
+        },
+        onDeleteClicked = {
+
         }
     )
 }
@@ -29,7 +36,8 @@ fun ListAppBar() {
 @Composable
 fun DefaultListAppBar(
     onSearchClicked: () -> Unit,
-    onSortClicked: (Priority) -> Unit
+    onSortClicked: (Priority) -> Unit,
+    onDeleteClicked: () -> Unit
 ) {
     TopAppBar(
         title = {
@@ -41,7 +49,8 @@ fun DefaultListAppBar(
         actions = {
             ListAppBarActions(
                 onSearchClicked = onSearchClicked,
-                onSortClicked = onSortClicked
+                onSortClicked = onSortClicked,
+                onDeleteClicked = onDeleteClicked
             )
         },
         backgroundColor = MaterialTheme.colors.topAppBarBackGroundColor
@@ -51,10 +60,12 @@ fun DefaultListAppBar(
 @Composable
 fun ListAppBarActions(
     onSearchClicked: () -> Unit,
-    onSortClicked: (Priority) -> Unit
+    onSortClicked: (Priority) -> Unit,
+    onDeleteClicked: () -> Unit
 ) {
     SearchAction(onSearchClicked = onSearchClicked)
     SortAction(onSortClicked = onSortClicked)
+    DeleteAllAction(onDeleteClicked = onDeleteClicked)
 }
 
 @Composable
@@ -81,7 +92,8 @@ fun SortAction(
     }) {
         Icon(
             painter = painterResource(id = R.drawable.ic_filter_list),
-            contentDescription = stringResource(R.string.sort_action)
+            contentDescription = stringResource(R.string.sort_action),
+            tint = MaterialTheme.colors.topAppBarContentColor
         )
         DropdownMenu(
             expanded = expanded,
@@ -116,7 +128,45 @@ fun SortAction(
 }
 
 @Composable
+fun DeleteAllAction(
+    onDeleteClicked: () -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+    IconButton(onClick = { expanded = true }
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.ic_vertical_menu),
+            contentDescription = stringResource(R.string.delete_all_action),
+            tint = MaterialTheme.colors.topAppBarContentColor
+
+        )
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            DropdownMenuItem(onClick = {
+                expanded = false
+                onDeleteClicked()
+            }) {
+                Text(
+                    modifier = Modifier.padding(start = LARGE_PADDING),
+                    text = stringResource(R.string.delete_all_action),
+                    style = Typography.subtitle2
+                )
+            }
+        }
+    }
+}
+
+@Composable
 @Preview
 private fun DefaultListAppBarPreview() {
-    DefaultListAppBar({}, {})
+    DefaultListAppBar({
+
+    }, {
+
+    }, {
+
+    })
 }
