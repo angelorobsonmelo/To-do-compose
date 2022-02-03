@@ -2,6 +2,8 @@ package com.angelorobson.to_do_compose.ui.screens.list
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -18,8 +20,35 @@ import com.angelorobson.to_do_compose.data.models.ToDoTask
 import com.angelorobson.to_do_compose.ui.theme.*
 
 @Composable
-fun ListContent() {
+fun ListContent(
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    if (tasks.isEmpty()) {
+        EmptyContent()
+        return
+    }
 
+    DisplayTasks(
+        tasks = tasks,
+        navigateToTaskScreen = navigateToTaskScreen
+    )
+}
+
+@Composable
+fun DisplayTasks(
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    LazyColumn {
+        items(
+            items = tasks,
+            key = { task ->
+                task.id
+            }) { task ->
+            TaskItem(toDoTask = task, navigateToTaskScreen = navigateToTaskScreen)
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -58,9 +87,7 @@ fun TaskItem(
                     contentAlignment = Alignment.TopEnd
                 ) {
                     Canvas(
-                        modifier = Modifier
-                            .width(PRIORITY_INDICATOR_SIZE)
-                            .height(PRIORITY_INDICATOR_SIZE),
+                        modifier = Modifier.size(PRIORITY_INDICATOR_SIZE)
                     ) {
                         drawCircle(color = toDoTask.priority.color)
                     }
