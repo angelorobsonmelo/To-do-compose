@@ -10,7 +10,7 @@ import com.angelorobson.to_do_compose.navigation.destinations.taskComposable
 import com.angelorobson.to_do_compose.ui.viewmodels.SharedViewModel
 import com.angelorobson.to_do_compose.util.Constants.LIST_SCREEN
 
-@OptIn(ExperimentalMaterialApi::class)
+@ExperimentalMaterialApi
 @Composable
 fun SetupNavigation(
     navController: NavHostController,
@@ -28,9 +28,9 @@ fun SetupNavigation(
             navigateTaskScreen = screen.task,
             sharedViewModel = sharedViewModel
         )
-
         taskComposable(
-            navigateToListScreen = screen.list
+            navigateToListScreen = screen.list,
+            sharedViewModel = sharedViewModel
         )
     }
 }

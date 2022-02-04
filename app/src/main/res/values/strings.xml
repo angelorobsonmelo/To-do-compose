@@ -12,4 +12,7 @@
     <string name="empty_content">No Tasks Found</string>
     <string name="back_arrow">Back Arrow</string>
     <string name="add_task">Add task</string>
+    <string name="close">Close</string>
+    <string name="delete">delete_icon</string>
+    <string name="update">Update Icon</string>
 </resources>
