@@ -1,5 +1,6 @@
 package com.angelorobson.to_do_compose.navigation.destinations
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
@@ -9,6 +10,7 @@ import com.angelorobson.to_do_compose.ui.viewmodels.SharedViewModel
 import com.angelorobson.to_do_compose.util.Constants.LIST_ARGUMENT_KEY
 import com.angelorobson.to_do_compose.util.Constants.LIST_SCREEN
 
+@ExperimentalMaterialApi
 fun NavGraphBuilder.listComposable(
     navigateTaskScreen: (taskId: Int) -> Unit,
     sharedViewModel: SharedViewModel

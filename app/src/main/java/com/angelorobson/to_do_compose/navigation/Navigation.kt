@@ -1,5 +1,6 @@
 package com.angelorobson.to_do_compose.navigation
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -9,6 +10,7 @@ import com.angelorobson.to_do_compose.navigation.destinations.taskComposable
 import com.angelorobson.to_do_compose.ui.viewmodels.SharedViewModel
 import com.angelorobson.to_do_compose.util.Constants.LIST_SCREEN
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SetupNavigation(
     navController: NavHostController,
@@ -24,7 +26,7 @@ fun SetupNavigation(
     ) {
         listComposable(
             navigateTaskScreen = screen.task,
-            sharedViewModel
+            sharedViewModel = sharedViewModel
         )
 
         taskComposable(
