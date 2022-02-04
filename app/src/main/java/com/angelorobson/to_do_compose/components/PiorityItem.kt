@@ -6,19 +6,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.material.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.angelorobson.to_do_compose.data.models.Priority
 import com.angelorobson.to_do_compose.ui.theme.LARGE_PADDING
 import com.angelorobson.to_do_compose.ui.theme.PRIORITY_INDICATOR_SIZE
 import com.angelorobson.to_do_compose.ui.theme.Typography
 
 @Composable
-fun PriorityITem(priority: Priority) {
+fun PriorityItem(priority: Priority) {
     Row(
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -37,5 +35,5 @@ fun PriorityITem(priority: Priority) {
 @Composable
 @Preview
 fun PriorityItemPreview() {
-    PriorityITem(priority = Priority.LOW)
+    PriorityItem(priority = Priority.LOW)
 }

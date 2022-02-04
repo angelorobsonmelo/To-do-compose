@@ -19,7 +19,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import com.angelorobson.to_do_compose.R
-import com.angelorobson.to_do_compose.components.PriorityITem
+import com.angelorobson.to_do_compose.components.PriorityItem
 import com.angelorobson.to_do_compose.data.models.Priority
 import com.angelorobson.to_do_compose.ui.theme.*
 import com.angelorobson.to_do_compose.ui.viewmodels.SharedViewModel
@@ -134,7 +134,7 @@ fun SortAction(
                     onSortClicked(Priority.LOW)
                 }
             ) {
-                PriorityITem(priority = Priority.LOW)
+                PriorityItem(priority = Priority.LOW)
             }
             DropdownMenuItem(
                 onClick = {
@@ -142,7 +142,7 @@ fun SortAction(
                     onSortClicked(Priority.HIGH)
                 }
             ) {
-                PriorityITem(priority = Priority.HIGH)
+                PriorityItem(priority = Priority.HIGH)
             }
             DropdownMenuItem(
                 onClick = {
@@ -150,7 +150,7 @@ fun SortAction(
                     onSortClicked(Priority.NONE)
                 }
             ) {
-                PriorityITem(priority = Priority.NONE)
+                PriorityItem(priority = Priority.NONE)
             }
         }
     }

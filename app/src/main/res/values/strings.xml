@@ -15,4 +15,7 @@
     <string name="close">Close</string>
     <string name="delete">delete_icon</string>
     <string name="update">Update Icon</string>
+    <string name="dropt_down_arrow">Drop down error icon</string>
+    <string name="title">title</string>
+    <string name="description">description</string>
 </resources>
