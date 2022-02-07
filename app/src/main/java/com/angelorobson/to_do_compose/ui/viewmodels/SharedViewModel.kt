@@ -4,6 +4,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.angelorobson.to_do_compose.data.models.Priority
 import com.angelorobson.to_do_compose.data.models.ToDoTask
 import com.angelorobson.to_do_compose.data.repositories.TodoRepository
@@ -76,16 +77,42 @@ class SharedViewModel @Inject constructor(
         }
     }
 
+    private fun updateTask() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val toDoTask = ToDoTask(
+                id = id.value,
+                title = title.value,
+                description = description.value,
+                priority = priority.value
+            )
+
+            repository.updateTask(toDoTask = toDoTask)
+        }
+    }
+
+    private fun deleteTask() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val toDoTask = ToDoTask(
+                id = id.value,
+                title = title.value,
+                description = description.value,
+                priority = priority.value
+            )
+
+            repository.deleteTask(toDoTask = toDoTask)
+        }
+    }
+
     fun handleDatabaseActions(action: Action) {
         when (action) {
             Action.ADD -> {
                 addTAsk()
             }
             Action.UPDATE -> {
-
+                updateTask()
             }
             Action.DELETE -> {
-
+                deleteTask()
             }
             Action.DELETE_ALL -> {
 
