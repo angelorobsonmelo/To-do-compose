@@ -7,10 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.angelorobson.to_do_compose.data.models.Priority
 import com.angelorobson.to_do_compose.data.models.ToDoTask
 import com.angelorobson.to_do_compose.data.repositories.TodoRepository
+import com.angelorobson.to_do_compose.util.Action
 import com.angelorobson.to_do_compose.util.Constants.MAX_TITLE_LENGTH
 import com.angelorobson.to_do_compose.util.RequestState
 import com.angelorobson.to_do_compose.util.SearchAppBarState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -21,6 +23,8 @@ import javax.inject.Inject
 class SharedViewModel @Inject constructor(
     private val repository: TodoRepository
 ) : ViewModel() {
+
+    val action: MutableState<Action> = mutableStateOf(Action.NO_ACTION)
 
     val searchAppBarState: MutableState<SearchAppBarState> =
         mutableStateOf(SearchAppBarState.CLOSED)
@@ -58,6 +62,42 @@ class SharedViewModel @Inject constructor(
                 _selectedTask.value = task
             }
         }
+    }
+
+    private fun addTAsk() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val toDoTask = ToDoTask(
+                title = title.value,
+                description = description.value,
+                priority = priority.value
+            )
+
+            repository.addTask(toDoTask = toDoTask)
+        }
+    }
+
+    fun handleDatabaseActions(action: Action) {
+        when (action) {
+            Action.ADD -> {
+                addTAsk()
+            }
+            Action.UPDATE -> {
+
+            }
+            Action.DELETE -> {
+
+            }
+            Action.DELETE_ALL -> {
+
+            }
+            Action.UNDO -> {
+
+            }
+            else -> {
+
+            }
+        }
+        this.action.value = Action.NO_ACTION
     }
 
     fun updateTaskFields(selectedTask: ToDoTask?) {
