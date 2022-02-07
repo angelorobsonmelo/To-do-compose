@@ -19,24 +19,46 @@ import com.angelorobson.to_do_compose.data.models.Priority
 import com.angelorobson.to_do_compose.data.models.ToDoTask
 import com.angelorobson.to_do_compose.ui.theme.*
 import com.angelorobson.to_do_compose.util.RequestState
+import com.angelorobson.to_do_compose.util.SearchAppBarState
 
 @Composable
 fun ListContent(
-    tasks: RequestState<List<ToDoTask>>,
+    allTasks: RequestState<List<ToDoTask>>,
+    searchedTasks: RequestState<List<ToDoTask>>,
+    searchAppBarState: SearchAppBarState,
     navigateToTaskScreen: (taskId: Int) -> Unit
 ) {
-    if (tasks is RequestState.Success) {
-        if (tasks.data.isEmpty()) {
-            EmptyContent()
-            return
+    if (searchAppBarState == SearchAppBarState.TRIGGERED) {
+        if (searchedTasks is RequestState.Success) {
+            HandleListContent(
+                tasks = searchedTasks.data,
+                navigateToTaskScreen = navigateToTaskScreen
+            )
         }
-
-        DisplayTasks(
-            tasks = tasks.data,
-            navigateToTaskScreen = navigateToTaskScreen
-        )
-
+    } else {
+        if (allTasks is RequestState.Success) {
+            HandleListContent(
+                tasks = allTasks.data,
+                navigateToTaskScreen = navigateToTaskScreen
+            )
+        }
     }
+}
+
+@Composable
+fun HandleListContent(
+    tasks: List<ToDoTask>,
+    navigateToTaskScreen: (taskId: Int) -> Unit
+) {
+    if (tasks.isEmpty()) {
+        EmptyContent()
+        return
+    }
+
+    DisplayTasks(
+        tasks = tasks,
+        navigateToTaskScreen = navigateToTaskScreen
+    )
 }
 
 @Composable

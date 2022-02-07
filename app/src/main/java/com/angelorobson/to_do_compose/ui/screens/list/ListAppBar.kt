@@ -52,7 +52,9 @@ fun ListAppBar(
                     sharedViewModel.searchAppBarState.value = SearchAppBarState.CLOSED
                     sharedViewModel.searchTextState.value = ""
                 },
-                onSearchClicked = { }
+                onSearchClicked = {
+                    sharedViewModel.searchDatabase(searchQuery = it)
+                }
             )
         }
     }
@@ -198,7 +200,6 @@ fun SearchAppBar(
     var trailingIconState by remember {
         mutableStateOf(TrailingIconState.READY_TO_DELETE)
     }
-
 
     Surface(
         modifier = Modifier
