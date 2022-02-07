@@ -18,4 +18,5 @@
     <string name="dropt_down_arrow">Drop down error icon</string>
     <string name="title">title</string>
     <string name="description">description</string>
+    <string name="ok">OK</string>
 </resources>

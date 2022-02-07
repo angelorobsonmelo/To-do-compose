@@ -118,7 +118,7 @@ class SharedViewModel @Inject constructor(
 
             }
             Action.UNDO -> {
-
+                addTAsk()
             }
             else -> {
 
