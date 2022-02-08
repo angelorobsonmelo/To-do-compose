@@ -7,6 +7,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.angelorobson.to_do_compose.R
+import com.angelorobson.to_do_compose.data.models.ToDoTask
 import com.angelorobson.to_do_compose.ui.theme.fabBackGroundColor
 import com.angelorobson.to_do_compose.ui.viewmodels.SharedViewModel
 import com.angelorobson.to_do_compose.util.Action
@@ -63,6 +64,10 @@ fun ListScreen(
                 highPriorityTasks = highPriorityTasks,
                 sortState = sortState,
                 searchAppBarState = searchAppBarState,
+                onSwipeToDelete = { action, toDoTask ->
+                    sharedViewModel.action.value = action
+                    sharedViewModel.updateTaskFields(selectedTask = toDoTask)
+                },
                 navigateToTaskScreen = navigateTaskScreen
             )
         },
