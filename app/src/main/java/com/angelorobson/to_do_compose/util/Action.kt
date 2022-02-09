@@ -9,25 +9,5 @@ enum class Action {
     NO_ACTION
 }
 
-fun String?.toAction(): Action {
-    return when {
-        this == Action.ADD.name -> {
-            Action.ADD
-        }
-        this == Action.UPDATE.name -> {
-            Action.UPDATE
-        }
-        this == Action.DELETE.name -> {
-            Action.DELETE
-        }
-        this == Action.DELETE_ALL.name -> {
-            Action.DELETE_ALL
-        }
-        this == Action.UNDO.name -> {
-            Action.ADD
-        }
-        else -> {
-            Action.NO_ACTION
-        }
-    }
-}
+fun String?.toAction(): Action =
+    if (this.isNullOrEmpty()) Action.NO_ACTION else Action.valueOf(this)
