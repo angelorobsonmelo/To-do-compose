@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.material.LocalContentColor
 import androidx.compose.material.Scaffold
@@ -28,9 +29,11 @@ fun TaskScreen(
 
     val context = LocalContext.current
 
-    BackHandler(onBackPressed = {
+//    BackHandler(onBackPressed = { navigateToListScreen(NO_ACTION) })
+
+    BackHandler {
         navigateToListScreen(NO_ACTION)
-    })
+    }
 
     Scaffold(
         topBar = {
@@ -72,27 +75,27 @@ fun displayToast(context: Context) {
     Toast.makeText(context, "Fields empty.", Toast.LENGTH_SHORT).show()
 }
 
-@Composable
-fun BackHandler(
-    backPressedDispatcher: OnBackPressedDispatcher? = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher,
-    onBackPressed: () -> Unit
-) {
-    val currentOnBackPressed by rememberUpdatedState(newValue = onBackPressed)
-
-    val backCallBack = remember {
-        object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                currentOnBackPressed()
-            }
-        }
-    }
-
-    DisposableEffect(key1 = backPressedDispatcher) {
-        backPressedDispatcher?.addCallback(backCallBack)
-
-        onDispose {
-            backCallBack.remove()
-        }
-    }
-
-}
+//@Composable
+//fun BackHandler(
+//    backPressedDispatcher: OnBackPressedDispatcher? = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher,
+//    onBackPressed: () -> Unit
+//) {
+//    val currentOnBackPressed by rememberUpdatedState(newValue = onBackPressed)
+//
+//    val backCallBack = remember {
+//        object : OnBackPressedCallback(true) {
+//            override fun handleOnBackPressed() {
+//                currentOnBackPressed()
+//            }
+//        }
+//    }
+//
+//    DisposableEffect(key1 = backPressedDispatcher) {
+//        backPressedDispatcher?.addCallback(backCallBack)
+//
+//        onDispose {
+//            backCallBack.remove()
+//        }
+//    }
+//
+//}

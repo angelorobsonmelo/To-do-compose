@@ -26,7 +26,6 @@ import com.angelorobson.to_do_compose.ui.theme.*
 import com.angelorobson.to_do_compose.ui.viewmodels.SharedViewModel
 import com.angelorobson.to_do_compose.util.Action
 import com.angelorobson.to_do_compose.util.SearchAppBarState
-import com.angelorobson.to_do_compose.util.TrailingIconState
 
 @Composable
 fun ListAppBar(
@@ -212,9 +211,6 @@ fun SearchAppBar(
     onCloseClicked: () -> Unit,
     onSearchClicked: (String) -> Unit
 ) {
-    var trailingIconState by remember {
-        mutableStateOf(TrailingIconState.READY_TO_DELETE)
-    }
 
     Surface(
         modifier = Modifier
@@ -256,19 +252,10 @@ fun SearchAppBar(
             trailingIcon = {
                 IconButton(
                     onClick = {
-                        when (trailingIconState) {
-                            TrailingIconState.READY_TO_DELETE -> {
-                                onTextChange("")
-                                trailingIconState = TrailingIconState.READY_TO_CLOSE
-                            }
-                            TrailingIconState.READY_TO_CLOSE -> {
-                                if (text.isNotEmpty()) {
-                                    onTextChange("")
-                                } else {
-                                    onCloseClicked()
-                                    trailingIconState = TrailingIconState.READY_TO_DELETE
-                                }
-                            }
+                        if (text.isNotEmpty()) {
+                            onTextChange("")
+                        } else {
+                            onCloseClicked()
                         }
                     }
                 ) {
